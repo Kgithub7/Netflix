@@ -3,16 +3,35 @@ import SearchIcon from "../assets/search_icon.svg";
 import BellIcon from "../assets/bell_icon.svg";
 import ProfileImg from "../assets/profile_img.png";
 import DropdownIcon from "../assets/caret_icon.svg";
+import { useEffect, useRef } from "react";
 
 const Nav = () => {
+  const navRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY >= 80) navRef.current?.classList.add("bg-[#141414]");
+      else navRef.current?.classList.remove("bg-[#141414]");
+    });
+    return () =>
+      window.removeEventListener("scroll", () => {
+        if (window.scrollY >= 80) navRef.current?.classList.add("bg-[#141414]");
+        else navRef.current?.classList.remove("bg-[#141414]");
+      });
+  }, []);
+
   return (
-    <div className="fixed flex w-full justify-between bg-linear-180 from-black to-transparent px-[6%] py-5 text-sm text-[#e5e5e5]">
+    <div
+      ref={navRef}
+      className="fixed z-1 flex w-full justify-between bg-linear-180 from-black to-transparent px-[6%] py-5 text-sm text-[#e5e5e5] "
+    >
       <div className="flex items-center gap-x-12.5">
         <img src={Logo} className="w-23" />
-        <ul className="flex gap-x-5 [&>*]:cursor-pointer">
+        <ul className="flex gap-x-5 [&>*]:cursor-pointer [&>*]:transition [&>*]:duration-200 [&>*]:not-first:hover:text-gray-300">
           <li>Home</li>
-          <li>TV Shows</li>
+          <li>Shows</li>
           <li>Movies</li>
+          <li>Games</li>
           <li>New & Popular</li>
           <li>My List</li>
           <li>Browse by Languages</li>
