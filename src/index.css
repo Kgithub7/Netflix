@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 @font-face {
   font-family: "Netflix Sans";
   src: url("src/assets/fonts/NetflixSans-Regular.woff2") format("woff2");
@@ -36,7 +35,7 @@
     box-sizing: border-box;
   }
   body {
-    background-color: #242424;
+    background-color: #141414;
     color: white;
   }
 }
@@ -44,6 +43,7 @@
 @layer utilities {
   .no-scrollbar {
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
   }
 
@@ -51,4 +51,3 @@
     display: none;
   }
 }
-

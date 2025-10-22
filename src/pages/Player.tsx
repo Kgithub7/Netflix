@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import BackArrowIcon from "../assets/back_arrow_icon.png";
 import type { Video, VideosResponse } from "../types/VideosTypes";
 import type { AxiosRequestConfig } from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import BackArrowIcon from "../assets/back_arrow_icon.png";
 import axios from "axios";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const Player = () => {
   const { id } = useParams();
@@ -12,6 +14,12 @@ const Player = () => {
   const isShow: boolean = location.state?.tv;
   const [video, setVideo] = useState<Video | null>(null);
   const [hasVideo, setHasVideo] = useState<boolean | null>(true);
+
+    useEffect(() => {
+      onAuthStateChanged(auth, (user) => {
+        !user && navigate("/");
+      });
+    }, []);
 
   const options: AxiosRequestConfig = {
     method: "GET",
@@ -80,13 +88,17 @@ const Player = () => {
           ></iframe>
           <div className="flex w-9/10 items-center justify-around">
             <p>
-              Date Published:&nbsp;
+              <strong>Date Published:</strong>&nbsp;
               {video?.published_at
                 ? new Date(video.published_at).toLocaleDateString()
                 : "—"}
             </p>
-            <p>Name:&nbsp;{video?.name}</p>
-            <p>Type:&nbsp;{video?.type}</p>
+            <p>
+              <strong>Name:</strong>&nbsp;{video?.name}
+            </p>
+            <p>
+              <strong>Type:</strong>&nbsp;{video?.type}
+            </p>
           </div>
         </>
       ) : (
