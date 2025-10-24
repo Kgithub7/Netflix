@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
 import axios, { type AxiosRequestConfig } from "axios";
 import type { MovieCard, MoviesResponse } from "../../types/MovieTypes.tsx";
-import type { ShowCard, ShowsResponse } from "../../types/TVShowTypes.tsx";
-import { Link } from "react-router-dom";
+import type { ShowCard, ShowsResponse } from "../../types/ShowTypes.tsx";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 interface Props {
   title?: string;
@@ -79,17 +79,17 @@ const TitleCards = ({ title, category, tv }: Props) => {
 
   return (
     <div className="mt-12.5 mb-3">
-      <h2 className="mb-2 text-2xl font-bold">{title}</h2>
+      <h2 className="mb-2 text-lg font-bold sm:text-2xl">{title}</h2>
       <div
         className="no-scrollbar flex scroll-px-30 flex-nowrap gap-x-2.5 overflow-x-auto"
         ref={cardsRef}
       >
         {loading
-          ? new Array(10).fill(null).map((_, index) => {
+          ? new Array(15).fill(null).map((_, index) => {
               return (
                 <div
                   key={index}
-                  className="mt-2 flex aspect-video w-70 shrink-0 animate-pulse snap-end flex-col items-end gap-y-2"
+                  className="mt-2 flex aspect-video w-50 shrink-0 animate-pulse snap-end flex-col items-end gap-y-2 sm:w-70 xl:w-100"
                 >
                   <div className="size-full rounded-sm bg-gray-600"></div>
                   <div className="aspect-video size-10 w-3/5 max-w-70 rounded-sm bg-gray-600"></div>
@@ -108,13 +108,13 @@ const TitleCards = ({ title, category, tv }: Props) => {
                       to={`/player/${show.id}`}
                       key={show.id}
                       state={{ tv: true }}
-                      className="relative mt-2 flex w-70 shrink-0 snap-end flex-col items-end overflow-visible"
+                      className="relative mt-2 flex w-50 shrink-0 snap-end flex-col items-end overflow-visible sm:w-70 xl:w-100"
                     >
                       <img
                         src={`https://image.tmdb.org/t/p/original/${show.backdrop_path}`}
                         className="w-full cursor-pointer rounded-sm"
                       />
-                      <p className="w-auto max-w-9/10 text-right text-lg font-medium">
+                      <p className="w-auto max-w-9/10 text-right font-bold sm:text-lg 2xl:text-xl">
                         {show.name}
                       </p>
                     </Link>
@@ -131,13 +131,13 @@ const TitleCards = ({ title, category, tv }: Props) => {
                       to={`/player/${movie.id}`}
                       key={movie.id}
                       state={{ tv: false }}
-                      className="relative mt-2 flex w-70 shrink-0 snap-end flex-col items-end overflow-visible"
+                      className="relative mt-2 flex w-50 shrink-0 snap-end flex-col items-end overflow-visible sm:w-70 xl:w-100"
                     >
                       <img
                         src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
                         className="w-full cursor-pointer rounded-sm"
                       />
-                      <p className="w-auto max-w-9/10 text-right text-lg font-medium">
+                      <p className="w-auto max-w-9/10 text-right font-bold sm:text-lg 2xl:text-xl">
                         {movie.title}
                       </p>
                     </Link>

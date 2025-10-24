@@ -10,14 +10,6 @@
 
 @font-face {
   font-family: "Netflix Sans";
-  src: url("src/assets/fonts/NetflixSans-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Netflix Sans";
   src: url("src/assets/fonts/NetflixSans-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;

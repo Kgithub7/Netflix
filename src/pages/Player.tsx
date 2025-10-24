@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import type { Video, VideosResponse } from "../types/VideosTypes";
 import type { AxiosRequestConfig } from "axios";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import BackArrowIcon from "../assets/back_arrow_icon.png";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
+import BackArrowIcon from "../assets/back_arrow_icon.png";
+import axios from "axios";
 
 const Player = () => {
   const { id } = useParams();
@@ -15,11 +15,11 @@ const Player = () => {
   const [video, setVideo] = useState<Video | null>(null);
   const [hasVideo, setHasVideo] = useState<boolean | null>(true);
 
-    useEffect(() => {
-      onAuthStateChanged(auth, (user) => {
-        !user && navigate("/");
-      });
-    }, []);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      !user && navigate("/");
+    });
+  }, []);
 
   const options: AxiosRequestConfig = {
     method: "GET",
@@ -49,7 +49,6 @@ const Player = () => {
         }
         setVideo(data.results ? data.results[0] : null);
         setHasVideo(true);
-        console.log(data.results);
       } catch (error) {
         setHasVideo(false);
         setVideo(null);
@@ -65,7 +64,7 @@ const Player = () => {
     <div className="flex h-dvh flex-col items-center justify-center">
       <img
         src={BackArrowIcon}
-        className="absolute top-5 left-5 size-12 cursor-pointer"
+        className="absolute top-3 left-3 size-12 cursor-pointer"
         onClick={() => navigate(-1)}
       />
       {hasVideo == false ? (
@@ -86,9 +85,9 @@ const Player = () => {
             allowFullScreen
             className="rounded-xl"
           ></iframe>
-          <div className="flex w-9/10 items-center justify-around">
+          <div className="hidden items-center justify-center gap-x-5 text-[clamp(.9rem,1dvw,2rem)] lg:flex [&>p]:line-clamp-1">
             <p>
-              <strong>Date Published:</strong>&nbsp;
+              <strong>Date&nbsp;Published:</strong>&nbsp;
               {video?.published_at
                 ? new Date(video.published_at).toLocaleDateString()
                 : "—"}

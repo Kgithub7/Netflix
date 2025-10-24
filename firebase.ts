@@ -1,5 +1,3 @@
-import { FirebaseError, initializeApp } from "firebase/app";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -7,6 +5,15 @@ import {
   signOut,
   type UserCredential,
 } from "firebase/auth";
+import {
+  doc,
+  FieldValue,
+  getFirestore,
+  serverTimestamp,
+  setDoc,
+  Timestamp,
+} from "firebase/firestore";
+import { FirebaseError, initializeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
@@ -17,6 +24,12 @@ const firebaseConfig = {
   appId: "1:845827750429:web:291e1de3a7d627e20f64f4",
   measurementId: "G-RTF3TD59H5",
 };
+
+interface newUser {
+  name: string;
+  email: string;
+  createdAt: Timestamp | FieldValue;
+}
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -30,23 +43,28 @@ const signUp = async (
   if (!name.trim()) return { success: false, error: "Name is required." };
   else
     try {
+      console.log("here");
       const response: UserCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password,
       );
       const user = response.user;
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        name,
-        authProvider: "local",
-        email,
-      });
+      const newUser: newUser = {
+        name: name,
+        email: user.email ?? "",
+        createdAt: serverTimestamp(),
+      };
+      await setDoc(doc(db, "users", user.uid), { newUser });
+
+      console.log("here2");
       return { success: true };
     } catch (error) {
       if (error instanceof FirebaseError) {
+        console.log(error);
         return { success: false, error: mapAuthError(error.code) };
       } else {
+        console.log("here4");
         return { success: false, error: mapAuthError() };
       }
     }
@@ -61,7 +79,6 @@ const logIn = async (
     return { success: true };
   } catch (error) {
     if (error instanceof FirebaseError) {
-      console.log(error.code);
       return { success: false, error: mapAuthError(error.code) };
     } else {
       return { success: false, error: mapAuthError() };

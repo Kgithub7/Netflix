@@ -36,6 +36,7 @@ const Login = () => {
       const response = await (status === "Sign In"
         ? logIn(email, password)
         : signUp(name, email, password));
+      console.log(response);
       if (response.success) {
         setLoading(true);
         setTimeout(() => {
@@ -60,10 +61,10 @@ const Login = () => {
       <img src={NetflixSpinner} className="w-30" />
     </div>
   ) : (
-    <div className="h-dvh bg-[linear-gradient(to_right,#00000070,#00000070),url(/background_banner.jpg)] bg-cover bg-center bg-no-repeat px-[6%] py-5">
+    <div className="h-dvh w-dvw bg-[linear-gradient(to_right,#00000070,#00000070),url(/background_banner.jpg)] bg-cover bg-center bg-no-repeat px-[4%] py-5">
       <img src={Logo} className="w-37.5" />
-      <div className="absolute top-1/2 left-1/2 mx-auto w-full max-w-112.5 -translate-1/2 rounded-sm bg-black/75 p-15">
-        <h1 className="mb-7 text-3xl font-medium">{status}</h1>
+      <div className="absolute top-1/2 left-1/2 mt-5 w-3/5 max-w-120 min-w-70 -translate-1/2 rounded-sm bg-black/75 p-5 sm:mt-0 sm:w-3/10 sm:max-w-150 sm:min-w-110 sm:p-15">
+        <h1 className="mb-4 text-3xl font-bold sm:mb-7">{status}</h1>
         <form
           className="[&>button]:my-5 [&>button]:w-full [&>button]:cursor-pointer [&>button]:rounded-sm [&>button]:border-0 [&>button]:bg-[#e50914] [&>button]:p-4 [&>button]:text-white [&>button]:outline-0 [&>button]:hover:bg-red-700 [&>input]:my-3 [&>input]:h-12.5 [&>input]:w-full [&>input]:rounded-sm [&>input]:border-0 [&>input]:bg-[#333] [&>input]:p-[16px_20px] [&>input]:text-sm [&>input]:text-white [&>input]:outline-none [&>input::placeholder]:text-base"
           onSubmit={userAuth}
@@ -109,7 +110,7 @@ const Login = () => {
             </a>
           </div>
         </form>
-        <div className="mt-10 text-[#737373] [&_button]:ml-1.5 [&_button]:cursor-pointer [&_button]:text-white">
+        <div className="mt-10 text-xs text-[#737373] sm:text-base [&_button]:ml-1.5 [&_button]:cursor-pointer [&_button]:text-white">
           {status == "Sign In" ? (
             <p>
               New to Netflix?

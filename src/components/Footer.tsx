@@ -1,18 +1,18 @@
-import YoutubeIcon from "../assets/youtube_icon.png";
 import InstagramIcon from "../assets/instagram_icon.png";
-import TwitterIcon from "../assets/twitter_icon.png";
 import FacebookIcon from "../assets/facebook_icon.png";
+import YoutubeIcon from "../assets/youtube_icon.png";
+import TwitterIcon from "../assets/twitter_icon.png";
 
 const Footer = () => {
   return (
-    <div className="m-[0_auto] max-w-250 py-7.5 text-sm text-[#808080]">
-      <div className="my-10 flex gap-x-5 [&>*]:w-7.5 [&>*]:cursor-pointer">
+    <div className="m-[0_auto] max-w-9/10 py-7.5 text-sm text-[#808080] sm:max-w-150 md:max-w-180 lg:max-w-240">
+      <div className="my-10 flex gap-x-5 [&>*]:w-7.5 [&>*]:cursor-pointer [&>*]:hover:brightness-90">
         <img src={FacebookIcon} />
         <img src={InstagramIcon} />
         <img src={TwitterIcon} />
         <img src={YoutubeIcon} />
       </div>
-      <ul className="mb-7.5 grid grid-cols-[auto_240px_auto_auto] gap-4 [&>*]:cursor-pointer [&>*]:hover:underline">
+      <ul className="m-[0_auto] mb-7.5 grid grid-cols-2 gap-5 sm:grid-cols-[auto_240px_auto_auto] sm:gap-4 [&>li]:w-fit [&>li]:cursor-pointer [&>li]:hover:underline">
         <li>Audio Description</li>
         <li>Help Center</li>
         <li>Gift Cards</li>
